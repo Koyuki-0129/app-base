@@ -18,20 +18,25 @@
     </style>
 </head>
 <body>
-    <h1>TODOリスト</h1>
+    <h1>お客様入力フォーム</h1>
     
     <!-- TODOを追加するためのフォーム -->
     <form id="todoForm" class="todo-form">
-        <input type="text" id="todoInput" placeholder="新しいTODOを入力..." required>
+        <p>
+        <input type="number" id="todoInput" placeholder="お客様の人数" required>
+        </p>
         <button type="submit">追加</button>
+
     </form>
+
+
 
     <!-- TODOリストを表示する場所 -->
     <ul id="todoList"></ul>
 
     <script>
         // APIのベースURL：実際のAPIサーバーのアドレス
-        const API_URL = 'http://localhost:8000/todos';
+        const API_URL = 'http://54.150.253.61:8000/todos';
         
         /**
          * APIとの通信を行う汎用関数
@@ -55,15 +60,18 @@
          * @param {Object} todo - TODOオブジェクト（id, title, completedを含む）
          * @returns {string} TODOアイテムのHTML文字列
          */
-        function renderTodo(todo) {
+        let todos = [];
+        
+        function renderTodo(todo,index) {
             return `
-                <li>
+                <table>
+                    <span>${index + 1}.</span>
                     <input type="checkbox" 
                            ${todo.completed ? 'checked' : ''} 
                            onchange="toggleTodo(${todo.id}, this.checked)">
                     <span class="${todo.completed ? 'completed' : ''}">${todo.title}</span>
                     <button onclick="deleteTodo(${todo.id})">削除</button>
-                </li>
+                </table>
             `;
         }
 
